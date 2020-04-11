@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow-y: hidden;
+        }
+
+        body {
+            border: 1px solid #000;
+            margin: 0;
+            background: url(background.jpg) no-repeat center/cover
+        }
+
+        .data-box {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        table {
+            margin: 0 auto;
+            padding: 30px;
+            cursor: url(bb.png), auto;
+        }
+
+        td {
+
+            width: 100px;
+            height: 100px;
+            background: url(tudi.png) no-repeat;
+            text-align: center;
+        }
+
+        img {
+            width: 90%;
+            height: 90%;
+        }
+
+        td:hover {
+            border: 1px solid black;
+        }
+
+        .end {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)
+        }
+
+        .end img {
+            display: none;
+            animation: mymove 3s forwards;
+        }
+
+        @keyframes mymove {
+            from {
+                opacity: 0;
+                transform: scale(0, 1, 0.1)
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.5, 1.5)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="data-box">
+        <label for="">分数<input type='text' value='0' id='textScore'></label>
+        <label for="">倒计时<input type='text' value='30' id='txtRemtime'></label>
+    </div>
+    <table>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <div class="end">
+        <img src="end.jpg" alt="">
+    </div>
+</body>
+<script>
+    var end = document.querySelector('.end').querySelector('img')
+    var temp = true;
+    var idx;
+    var td = document.querySelectorAll('td')
+    var second = 30;
+    var textScore = document.querySelector('#textScore');
+    var txtRemtime = document.querySelector('#txtRemtime')
+    //击中事件
+    
+  
+    function a() {
+
+        for (var i = 0; i < td.length; i++) {
+            try {
+                td[i].querySelector('img').onclick = function () {
+
+                    if (temp) {
+                        textScore.value = parseInt(textScore.value) + parseInt(1000);
+                        this.src = 'hit.png'
+                        temp = false;
+                    }
+
+
+                }
+            } catch (err) {
+
+            }
+
+        }
+    }
+    //生成fox
+    function fox() {
+        temp = true;
+        console.log(temp);
+
+        idx = parseInt(Math.random() * td.length)
+        var str = '<img src="fox.png" alt="fox">'
+        td[idx].innerHTML = str;
+        a();
+    }
+    //fox 消失并计时
+    var timer2 = function () {
+
+        setTimeout(function () {
+            try { td[idx].innerHTML = ''; }
+            catch (err) {
+
+            }
+
+            second -= 1;
+            txtRemtime.value = second;
+            if (second == 20) {
+                clearInterval(timer1)
+                end.style.display = 'block'
+                b
+
+            }
+
+        }, 1000)
+    }
+    fox();
+    timer2();
+    var timer1 = setInterval(function () {
+
+        fox();
+        timer2();
+
+    }, 2000)
+
+
+</script>
+
+</html>
